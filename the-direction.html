@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Direction</title>
+    <link rel="stylesheet" href="/assets/output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="relative bg-hijau-tua">
+      <!-- PATTERN -->
+      <svg
+        class="pointer-events-none absolute inset-0 z-0 h-full w-full text-gold"
+        style="
+          opacity: 0.12;
+          -webkit-mask-image: linear-gradient(
+            225deg,
+            black 0%,
+            transparent 70%
+          );
+          mask-image: linear-gradient(225deg, black 0%, transparent 70%);
+        "
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="islamicPatternSuara"
+            width="60"
+            height="60"
+            patternUnits="userSpaceOnUse"
+          >
+            <g fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="14" y="14" width="32" height="32" />
+              <rect
+                x="14"
+                y="14"
+                width="32"
+                height="32"
+                transform="rotate(45 30 30)"
+              />
+              <circle cx="0" cy="0" r="8" />
+              <circle cx="60" cy="0" r="8" />
+              <circle cx="0" cy="60" r="8" />
+              <circle cx="60" cy="60" r="8" />
+            </g>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#islamicPatternSuara)" />
+      </svg>
+
+      <nav
+        class="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-5 pointer-events-none"
+      >
+        <div
+          id="navInner"
+          class="pointer-events-auto flex w-full max-w-full items-center justify-between px-12 py-1.5 rounded-full border-y border-transparent font-medium text-krem bg-transparent transition-all duration-500 ease-in-out"
+        >
+          <div><span>Logo</span></div>
+
+          <ul class="flex text-base items-center justify-between gap-2">
+            <li
+              class="nav-link cursor-pointer leading-none rounded-full px-4 py-1 font-medium text-krem transition-colors duration-500 hover:text-gold"
+              data-target="suara-waktu"
+            >
+              Suara & Waktu
+            </li>
+            <li
+              class="nav-link cursor-pointer leading-none rounded-full px-4 py-1 font-medium text-krem transition-colors duration-500 hover:text-gold"
+              data-target="suara-kebaikan"
+            >
+              Suara Kebaikan
+            </li>
+            <li
+              class="nav-link cursor-pointer leading-none rounded-full px-4 py-1 font-medium text-krem transition-colors duration-500 hover:text-gold"
+              data-target="suara-inspirasi"
+            >
+              Suara Inspirasi
+            </li>
+          </ul>
+
+          <div>
+            <img class="w-10" src="./assets/images/suara-ramadhan.svg" alt="" />
+          </div>
+        </div>
+      </nav>
+      <div class="relative z-10 mx-auto px-16 pt-28 pb-16">
+        <div class="flex items-end justify-between">
+          <div>
+            <h1
+              class="font-semibold text-5xl text-krem [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]"
+            >
+              The Direction
+            </h1>
+            <span class="text-sm text-krem/60"
+              >Tadarus quran versi website, bacalah walau hanya satu ayat</span
+            >
+          </div>
+
+          <div class="flex flex-col gap-2">
+            <input
+              class="px-6 py-3 text-sm rounded-full bg-white/10 border-y border-white/40 placeholder:text-krem/80"
+              type="search"
+              placeholder="Nama/nomor surah"
+            />
+
+            <div class="flex items-center gap-2 text-krem text-sm">
+              <span
+                ><span class="text-krem/60">Sering dibaca:</span>
+                <span class="underline underline-offset-1">Al-Waqi'ah</span>,
+                <span class="underline underline-offset-1">Ya-Sin</span>,
+                <span class="underline underline-offset-1">Al-Mulk</span>,
+                <span class="underline underline-offset-1">Al-Kahfi</span>,
+                <span class="underline underline-offset-1"
+                  >Ar-Rahman</span
+                ></span
+              >
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+  </body>
+</html>

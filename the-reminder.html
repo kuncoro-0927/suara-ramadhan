@@ -1,0 +1,390 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>The Reminder</title>
+    <link rel="stylesheet" href="/assets/output.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Berkshire+Swash&family=DM+Sans:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,600;9..144,700;9..144,800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Geist:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <header class="relative bg-hijau-tua">
+      <!-- PATTERN -->
+      <svg
+        class="pointer-events-none absolute inset-0 z-0 h-full w-full text-gold"
+        style="
+          opacity: 0.12;
+          -webkit-mask-image: linear-gradient(
+            225deg,
+            black 0%,
+            transparent 70%
+          );
+          mask-image: linear-gradient(225deg, black 0%, transparent 70%);
+        "
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="islamicPatternSuara"
+            width="60"
+            height="60"
+            patternUnits="userSpaceOnUse"
+          >
+            <g fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="14" y="14" width="32" height="32" />
+              <rect
+                x="14"
+                y="14"
+                width="32"
+                height="32"
+                transform="rotate(45 30 30)"
+              />
+              <circle cx="0" cy="0" r="8" />
+              <circle cx="60" cy="0" r="8" />
+              <circle cx="0" cy="60" r="8" />
+              <circle cx="60" cy="60" r="8" />
+            </g>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#islamicPatternSuara)" />
+      </svg>
+
+      <nav
+        class="fixed top-0 inset-x-0 z-50 flex justify-center px-4 pt-5 pointer-events-none"
+      >
+        <div
+          id="navInner"
+          class="pointer-events-auto flex w-full max-w-full items-center justify-between px-12 py-1.5 rounded-full border-y border-transparent font-medium text-krem bg-transparent transition-all duration-500 ease-in-out"
+        >
+          <div><span>Logo</span></div>
+
+          <ul class="flex text-base items-center justify-between gap-2">
+            <li
+              class="nav-link cursor-pointer leading-none rounded-full px-4 py-1 font-medium text-krem transition-colors duration-500 hover:text-gold"
+              data-target="suara-waktu"
+            >
+              Suara & Waktu
+            </li>
+            <li
+              class="nav-link cursor-pointer leading-none rounded-full px-4 py-1 font-medium text-krem transition-colors duration-500 hover:text-gold"
+              data-target="suara-kebaikan"
+            >
+              Suara Kebaikan
+            </li>
+            <li
+              class="nav-link cursor-pointer leading-none rounded-full px-4 py-1 font-medium text-krem transition-colors duration-500 hover:text-gold"
+              data-target="suara-inspirasi"
+            >
+              Suara Inspirasi
+            </li>
+          </ul>
+
+          <div>
+            <img class="w-10" src="./assets/images/suara-ramadhan.svg" alt="" />
+          </div>
+        </div>
+      </nav>
+      <div class="relative z-10 mx-auto px-16 pt-28 pb-16">
+        <div class="flex items-end justify-between">
+          <div>
+            <h1
+              class="font-semibold text-5xl text-krem [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]"
+            >
+              The Reminder
+            </h1>
+            <span class="text-sm text-krem"
+              >Lorem ipsum dolor sit amet consectetur adipisicing elit.
+              Cupiditate, labore.</span
+            >
+
+            <div class="mt-8 flex flex-col gap-3 items-start">
+              <span id="today-date" class="text-krem text-sm"></span>
+              <div class="flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#ddaa54"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                  />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span
+                  id="selected-location"
+                  class="text-sm font-medium uppercase text-gold"
+                >
+                  Memuat lokasi...
+                </span>
+              </div>
+
+              <div class="flex items-center gap-2">
+                <button
+                  type="button"
+                  id="btn-open-modal"
+                  class="px-4 py-2 rounded-full bg-white/10 border-y border-white/40 backdrop-blur-md text-sm text-krem hover:bg-white/15 hover:border-white duration-200 cursor-pointer"
+                >
+                  Ganti Lokasi
+                </button>
+
+                <button
+                  id="btn-gps-main"
+                  class="px-4 py-2 rounded-full bg-white/10 border-y border-white/40 backdrop-blur-md text-sm text-krem hover:bg-white/15 hover:border-white duration-200 cursor-pointer"
+                >
+                  Gunakan Lokasi Saat Ini
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <div
+            class="border-y border-white/40 shadow-md text-krem bg-white/10 backdrop-blur-md rounded-2xl px-4 py-3 max-w-[350px] w-full"
+          >
+            <div class="flex gap-16 justify-between items-end">
+              <div class="flex flex-col gap-1">
+                <!-- klik lokasi -> buka modal -->
+                <span class="text-xs text-gold">Waktu Berikutnya</span>
+
+                <span id="event-name" class="text-xl text-krem">Maghrib</span>
+                <div class="text-sm text-krem/60">
+                  <span id="event-time">--.--</span>
+                </div>
+              </div>
+
+              <div class="flex flex-col items-start">
+                <span id="countdown" class="text-gold text-2xl tabular-nums"
+                  >--:--:--</span
+                >
+                <span id="event-label" class="text-[12px] text-krem/60"> </span>
+              </div>
+            </div>
+
+            <div class="border-b border-krem/40 flex my-4"></div>
+
+            <div
+              class="text-xs text-krem flex items-start gap-3 justify-between"
+            >
+              <div class="flex flex-col gap-1" data-prayer-card="imsak">
+                <span class="text-krem/60">Imsak</span>
+                <span data-prayer="imsak">--:--</span>
+              </div>
+
+              <div class="flex flex-col gap-1" data-prayer-card="subuh">
+                <span class="text-krem/60">Subuh</span>
+                <span data-prayer="subuh">--:--</span>
+              </div>
+
+              <div class="flex flex-col gap-1" data-prayer-card="dzuhur">
+                <span class="text-krem/60">Dzuhur</span>
+                <span data-prayer="dzuhur">--:--</span>
+              </div>
+
+              <div class="flex flex-col gap-1" data-prayer-card="ashar">
+                <span class="text-krem/60">Ashar</span>
+                <span data-prayer="ashar">--:--</span>
+              </div>
+
+              <div class="flex flex-col gap-1" data-prayer-card="maghrib">
+                <span class="text-krem/60">Maghrib</span>
+                <span data-prayer="maghrib">--:--</span>
+              </div>
+
+              <div class="flex flex-col gap-1" data-prayer-card="isya">
+                <span class="text-krem/60">Isya</span>
+                <span data-prayer="isya">--:--</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== MODAL LOKASI ===== -->
+      <div
+        id="loc-modal"
+        class="hidden fixed inset-0 z-50 items-center justify-center bg-black/50 backdrop-blur-sm p-4"
+      >
+        <div
+          class="w-full max-w-md rounded-2xl border border-white/30 bg-neutral-900/90 text-white shadow-xl p-5 flex flex-col gap-4"
+        >
+          <div class="flex items-center justify-between">
+            <h2 class="text-lg font-semibold">Pilih Lokasi</h2>
+            <button
+              type="button"
+              id="btn-close-modal"
+              class="text-2xl leading-none text-white/70 hover:text-white cursor-pointer"
+              aria-label="Tutup"
+            >
+              &times;
+            </button>
+          </div>
+
+          <button
+            type="button"
+            id="btn-gps"
+            class="rounded-xl bg-white/15 hover:bg-white/25 transition px-3 py-2 text-sm text-left cursor-pointer"
+          >
+            📍 Gunakan lokasi saya
+          </button>
+
+          <div class="flex gap-2">
+            <input
+              id="loc-input"
+              type="text"
+              placeholder="Cari kota, mis. Surabaya"
+              class="flex-1 rounded-xl bg-white/10 border border-white/30 px-3 py-2 text-sm outline-none focus:border-[#ddaa54]"
+            />
+            <button
+              type="button"
+              id="btn-search"
+              class="rounded-xl bg-[#ddaa54] text-black font-medium px-4 py-2 text-sm cursor-pointer"
+            >
+              Cari
+            </button>
+          </div>
+
+          <p id="modal-status" class="text-xs text-white/60 hidden"></p>
+          <ul
+            id="loc-results"
+            class="flex flex-col gap-1 max-h-60 overflow-y-auto"
+          ></ul>
+        </div>
+      </div>
+    </header>
+
+    <section class="relative bg-krem/70 min-h-screen">
+      <!-- PATTERN -->
+      <svg
+        class="pointer-events-none absolute inset-0 z-0 h-full w-full text-hijau-tua"
+        style="
+          opacity: 0.07;
+          -webkit-mask-image: linear-gradient(
+            135deg,
+            black 0%,
+            transparent 70%
+          );
+          mask-image: linear-gradient(135deg, black 0%, transparent 70%);
+        "
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="islamicPatternNews"
+            width="60"
+            height="60"
+            patternUnits="userSpaceOnUse"
+          >
+            <g fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="14" y="14" width="32" height="32" />
+              <rect
+                x="14"
+                y="14"
+                width="32"
+                height="32"
+                transform="rotate(45 30 30)"
+              />
+              <circle cx="0" cy="0" r="8" />
+              <circle cx="60" cy="0" r="8" />
+              <circle cx="0" cy="60" r="8" />
+              <circle cx="60" cy="60" r="8" />
+            </g>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#islamicPatternNews)" />
+      </svg>
+
+      <!-- KONTEN SECTION -->
+      <div
+        class="relative z-10 flex flex-col mx-auto justify-center items-center px-16 py-24"
+      >
+        <div class="max-w-3xl w-full text-hijau-tua">
+          <div class="flex items-end justify-between gap-4 mb-3">
+            <div class="flex flex-col items-start">
+              <h2
+                class="text-hijau-tua mb-2 text-2xl font-semibold [text-shadow:0_2px_6px_rgba(0,0,0,0.15)]"
+              >
+                Jadwal Imsakiyah
+                <span data-imsakiyah-location></span>,
+                <br />
+                Ramadhan 1448 H / 2027
+              </h2>
+
+              <div class="flex items-center gap-2">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#6c6c6c"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path
+                    d="M20 10c0 4.993-5.539 10.193-7.399 11.799a1 1 0 0 1-1.202 0C9.539 20.193 4 14.993 4 10a8 8 0 0 1 16 0"
+                  />
+                  <circle cx="12" cy="10" r="3" />
+                </svg>
+                <span
+                  data-imsakiyah-location
+                  class="text-xs font-medium uppercase text-[#6c6c6c]"
+                >
+                </span>
+              </div>
+            </div>
+
+            <div>
+              <button
+                type="button"
+                id="btn-pdf"
+                class="text-sm text-hijau-tua underline underline-offset-1"
+              >
+                Unduh PDF
+              </button>
+            </div>
+          </div>
+
+          <div
+            class="overflow-x-auto mt-8 rounded-2xl bg-white/20 shadow-xs border border-hijau-tua/20  backdrop-blur-md"
+          >
+            <table class="w-full text-xs text-center">
+              <thead class=" ">
+                <tr>
+                  <th class="py-2 px-2">Ke-</th>
+                  <th class="py-2 px-2 text-left">Tanggal</th>
+                  <th class="py-2 px-2">Imsak</th>
+                  <th class="py-2 px-2">Subuh</th>
+                  <th class="py-2 px-2">Dzuhur</th>
+                  <th class="py-2 px-2">Ashar</th>
+                  <th class="py-2 px-2">Maghrib</th>
+                  <th class="py-2 px-2">Isya</th>
+                </tr>
+              </thead>
+              <tbody id="imsakiyah-body"></tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script type="module" src="/js/imsakiyah.js"></script>
+    <script type="module" src="/js/hero-jadwal.js"></script>
+    <script src="/js/nav.js" defer></script>
+    <script type="module" src="/js/imsakiyah-pdf.js"></script>
+  </body>
+</html>
