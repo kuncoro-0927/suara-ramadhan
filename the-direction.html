@@ -320,9 +320,7 @@
       <div
         class="relative z-10 max-w-5xl flex flex-col mx-auto justify-start items-start px-16 py-24"
       >
-        <div
-          class="flex items-center w-full mx-auto justify-between"
-        >
+        <div class="flex items-center w-full mx-auto justify-between">
           <a href="#" class="text-sm underline">← Daftar surat</a>
           <nav class="flex justify-between gap-3 text-sm">
             <a id="nav-prev" class="underline"></a>
@@ -346,12 +344,55 @@
         <p id="ayat-status" class="text-sm text-gold mt-3"></p>
 
         <template id="ayat-item">
-          <li class="border-b border-black/10 py-4">
+          <li
+            data-active="false"
+            data-playing="false"
+            class="group/ayat -mx-3 rounded-xl border-b border-black/10 px-3 py-4 transition-colors data-[active=true]:bg-gold/10"
+          >
             <div class="flex items-start gap-3">
-              <span
-                data-f="nomor"
-                class="shrink-0 text-xs border border-black/10 rounded-full w-7 h-7 flex items-center justify-center"
-              ></span>
+              <!-- nomor + tombol putar -->
+              <div class="flex shrink-0 items-center gap-2">
+                <span
+                  data-f="nomor"
+                  class="shrink-0 text-xs border border-black/10 rounded-full w-7 h-7 flex items-center justify-center"
+                ></span>
+                <button
+                  type="button"
+                  data-play
+                  aria-label="Putar ayat"
+                  aria-pressed="false"
+                  class="grid size-7 shrink-0 cursor-pointer place-items-center rounded-full bg-hijau-tua text-krem transition hover:brightness-125 disabled:cursor-not-allowed disabled:opacity-40"
+                >
+                  <!-- ikon putar -->
+                  <svg
+                    class="group-data-[playing=true]/ayat:hidden"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"
+                    />
+                  </svg>
+                  <!-- ikon jeda -->
+                  <svg
+                    class="hidden group-data-[playing=true]/ayat:block"
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="12"
+                    height="12"
+                    viewBox="0 0 24 24"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <rect x="6" y="4" width="4" height="16" rx="1" />
+                    <rect x="14" y="4" width="4" height="16" rx="1" />
+                  </svg>
+                </button>
+              </div>
+
               <div class="flex-1 min-w-0">
                 <p
                   data-f="arab"
@@ -363,6 +404,26 @@
                   data-f="arti"
                   class="text-xs italic text-hijau-tua/60 mt-2"
                 ></p>
+
+                <!-- pemutar audio: muncul saat ayat diputar -->
+                <div
+                  class="mt-3 hidden items-center gap-3 rounded-full bg-hijau-tua px-4 py-2 text-krem group-data-[active=true]/ayat:flex"
+                >
+                  <span data-cur class="w-9 text-xs tabular-nums">0:00</span>
+                  <input
+                    data-seek
+                    type="range"
+                    min="0"
+                    max="100"
+                    step="0.1"
+                    value="0"
+                    aria-label="Posisi audio"
+                    class="h-1 min-w-0 flex-1 cursor-pointer accent-gold"
+                  />
+                  <span data-dur class="w-9 text-right text-xs tabular-nums"
+                    >0:00</span
+                  >
+                </div>
               </div>
             </div>
           </li>
