@@ -17,7 +17,7 @@
     />
   </head>
   <body>
-    <header class="relative bg-hijau-tua">
+    <header class="relative bg-hijau-tua h-[380px]">
       <!-- PATTERN -->
       <svg
         class="pointer-events-none absolute inset-0 z-0 h-full w-full text-gold"
@@ -96,19 +96,47 @@
       <div class="relative z-10 mx-auto px-16 pt-28 pb-16">
         <div class="flex items-end justify-between">
           <div>
-            <h1
-              class="font-semibold text-5xl text-krem [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]"
-            >
-              The Direction
-            </h1>
-            <span class="text-sm text-krem/60"
-              >Tadarus quran versi website, bacalah walau hanya satu ayat</span
-            >
+            <div class="flex flex-col">
+              <h1
+                class="font-semibold text-5xl mt-2 text-krem [text-shadow:0_4px_12px_rgba(0,0,0,0.35)]"
+              >
+                The Direction
+              </h1>
+              <span class="text-sm text-krem/60"
+                >Tadarus quran versi website, bacalah walau hanya satu
+                ayat</span
+              >
+
+              <button
+                class="bg-white/10 border-y border-white/40 w-fit text-sm mt-4 mb-2 px-4 py-2 rounded-full text-krem"
+              >
+                Mulai membaca
+              </button>
+            </div>
+
+            <div class="border-[0.1px] border-krem/40 my-4 flex"></div>
+
+            <div class="flex items-start gap-6 text-krem">
+              <div class="flex flex-col items-start gap-1">
+                <span class="text-2xl font-semibold text-gold">114</span
+                ><span class="text-sm text-krem/60">surah</span>
+              </div>
+
+              <div class="flex flex-col items-start gap-1">
+                <span class="text-2xl font-semibold text-gold">30</span
+                ><span class="text-sm text-krem/60">juz</span>
+              </div>
+
+              <div class="flex flex-col items-start gap-1">
+                <span class="text-2xl font-semibold text-gold">6.236</span
+                ><span class="text-sm text-krem/60">ayat</span>
+              </div>
+            </div>
           </div>
 
           <div class="flex flex-col gap-2">
             <input
-              class="px-6 py-3 text-sm rounded-full bg-white/10 border-y border-white/40 placeholder:text-krem/80"
+              class="px-6 py-3 text-sm rounded-full bg-white/10 border-y backdrop-blur-md border-white/40 placeholder:text-krem/80 focus:outline-0 text-krem focus:border-white/80 focus:bg-white/15 duration-200 transition-colors appearance-none"
               type="search"
               placeholder="Nama/nomor surah"
             />
@@ -129,5 +157,220 @@
         </div>
       </div>
     </header>
+
+    <section id="view-list" class="relative bg-krem/70 min-h-screen">
+      <!-- PATTERN -->
+      <svg
+        class="pointer-events-none absolute left-0 top-0 z-0 h-[480px] w-[900px] max-w-full text-hijau-tua"
+        style="
+          opacity: 0.07;
+          -webkit-mask-image: radial-gradient(
+            ellipse 80% 100% at 0% 0%,
+            black 0%,
+            transparent 100%
+          );
+          mask-image: radial-gradient(
+            ellipse 80% 100% at 0% 0%,
+            black 0%,
+            transparent 100%
+          );
+        "
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="islamicPatternNews"
+            width="60"
+            height="60"
+            patternUnits="userSpaceOnUse"
+          >
+            <g fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="14" y="14" width="32" height="32" />
+              <rect
+                x="14"
+                y="14"
+                width="32"
+                height="32"
+                transform="rotate(45 30 30)"
+              />
+              <circle cx="0" cy="0" r="8" />
+              <circle cx="60" cy="0" r="8" />
+              <circle cx="0" cy="60" r="8" />
+              <circle cx="60" cy="60" r="8" />
+            </g>
+          </pattern>
+        </defs>
+        <rect width="100%" height="100%" fill="url(#islamicPatternNews)" />
+      </svg>
+
+      <!-- KONTEN SECTION -->
+      <div
+        class="relative z-10 flex flex-col mx-auto justify-start items-start px-16 py-24"
+      >
+        <div class="flex flex-col items-start">
+          <h2
+            class="text-hijau-tua mb-1 text-2xl font-semibold [text-shadow:0_2px_6px_rgba(0,0,0,0.15)]"
+          >
+            Lorem ipsum dolor sit.
+          </h2>
+          <span class="text-sm max-w-md text-hijau-tua">
+            Ruang untuk berhenti sejenak, merenung, dan memahami diri lebih
+            dalam.
+          </span>
+        </div>
+
+        <div class="mt-6">
+          <!-- <input
+            id="surah-search"
+            type="search"
+            placeholder="Cari surat..."
+            class="w-full border border-black/10 rounded-xl px-3 py-2 text-sm text-hijau-tua mb-3"
+          /> -->
+
+          <div id="surah-list" class="grid gap-4 sm:grid-cols-4"></div>
+          <p id="surah-status" class="text-sm text-hijau-tua/60 mt-3"></p>
+
+          <template id="surah-item">
+            <a
+              class="relative overflow-hidden border flex justify-center rounded-xl shadow-xs backdrop-blur-2xl items-stretch gap-4 border-black/10 p-2 text-hijau-tua duration-200 hover:bg-hijau-tua group hover:text-krem transition"
+            >
+              <div
+                class="surah-pattern pointer-events-none absolute inset-0 z-0"
+                aria-hidden="true"
+              ></div>
+
+              <div class="relative z-10">
+                <span class="text-sm" data-f="nomor"></span>
+              </div>
+
+              <div class="relative z-10 flex flex-col flex-1 min-w-0">
+                <div class="flex items-center justify-between gap-4">
+                  <span data-f="latin" class="truncate min-w-0 text-sm"
+                    >Al-Fatihah</span
+                  >
+                  <span data-f="arab" dir="rtl" class="text-lg shrink-0"
+                    >arab</span
+                  >
+                </div>
+                <div
+                  class="flex items-center justify-between gap-4 text-sm text-hijau-tua/70 duration-200 group-hover:text-krem/70"
+                >
+                  <span data-f="arti" class="truncate min-w-0">Pembukaan</span>
+                  <span data-f="ayat" class="shrink-0 whitespace-nowrap"
+                    >7 ayat</span
+                  >
+                </div>
+              </div>
+            </a>
+          </template>
+        </div>
+      </div>
+    </section>
+
+    <section id="view-detail" class="hidden relative bg-krem/70 text-hijau-tua">
+      <!-- PATTERN -->
+      <svg
+        class="pointer-events-none absolute left-0 top-0 z-0 h-[480px] w-[900px] max-w-full text-hijau-tua"
+        style="
+          opacity: 0.07;
+          -webkit-mask-image: radial-gradient(
+            ellipse 80% 100% at 0% 0%,
+            black 0%,
+            transparent 100%
+          );
+          mask-image: radial-gradient(
+            ellipse 80% 100% at 0% 0%,
+            black 0%,
+            transparent 100%
+          );
+        "
+        aria-hidden="true"
+      >
+        <defs>
+          <pattern
+            id="islamicPatternNewsDetail"
+            width="60"
+            height="60"
+            patternUnits="userSpaceOnUse"
+          >
+            <g fill="none" stroke="currentColor" stroke-width="1">
+              <rect x="14" y="14" width="32" height="32" />
+              <rect
+                x="14"
+                y="14"
+                width="32"
+                height="32"
+                transform="rotate(45 30 30)"
+              />
+              <circle cx="0" cy="0" r="8" />
+              <circle cx="60" cy="0" r="8" />
+              <circle cx="0" cy="60" r="8" />
+              <circle cx="60" cy="60" r="8" />
+            </g>
+          </pattern>
+        </defs>
+        <rect
+          width="100%"
+          height="100%"
+          fill="url(#islamicPatternNewsDetail)"
+        />
+      </svg>
+
+      <!-- KONTEN SECTION -->
+      <div
+        class="relative z-10 max-w-5xl flex flex-col mx-auto justify-start items-start px-16 py-24"
+      >
+        <div
+          class="flex items-center w-full mx-auto justify-between"
+        >
+          <a href="#" class="text-sm underline">← Daftar surat</a>
+          <nav class="flex justify-between gap-3 text-sm">
+            <a id="nav-prev" class="underline"></a>
+            <a id="nav-next" class="underline"></a>
+          </nav>
+        </div>
+
+        <header class="my-4 text-center flex justify-center flex-col mx-auto">
+          <div id="sh-arab" dir="rtl" class="font-arab text-4xl mb-1"></div>
+          <h1 id="sh-latin" class="text-xl font-semibold"></h1>
+          <p id="sh-meta" class="text-sm text-hijau-tua/70"></p>
+          <audio
+            id="sh-audio"
+            controls
+            preload="none"
+            class="w-full mt-3"
+          ></audio>
+        </header>
+
+        <ol id="ayat-list" class="flex w-full mx-auto flex-col"></ol>
+        <p id="ayat-status" class="text-sm text-gold mt-3"></p>
+
+        <template id="ayat-item">
+          <li class="border-b border-black/10 py-4">
+            <div class="flex items-start gap-3">
+              <span
+                data-f="nomor"
+                class="shrink-0 text-xs border border-black/10 rounded-full w-7 h-7 flex items-center justify-center"
+              ></span>
+              <div class="flex-1 min-w-0">
+                <p
+                  data-f="arab"
+                  dir="rtl"
+                  class="text-4xl font-arab leading-loose"
+                ></p>
+                <p data-f="latin" class="text-sm text-hijau-tua mt-2"></p>
+                <p
+                  data-f="arti"
+                  class="text-xs italic text-hijau-tua/60 mt-2"
+                ></p>
+              </div>
+            </div>
+          </li>
+        </template>
+      </div>
+    </section>
+    <script src="/js/nav.js" defer></script>
+    <script type="module" src="/js/quran-list.js"></script>
+    <script type="module" src="/js/quran.js"></script>
   </body>
 </html>
