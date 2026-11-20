@@ -1,7 +1,7 @@
 @import "tailwindcss";
-
+@import "tailwind-scrollbar-hide/v4";
 @theme {
-  --color-hijau-tua: #254545;
+  --color-biru-tua: #143356;
   --color-gold: #ddaa54;
   --color-krem: #fff9e5;
 
@@ -35,4 +35,14 @@
 }
 .group:hover .surah-pattern {
   opacity: 0.12;
+}
+
+/* Hilangkan tombol clear bawaan Chrome, Edge, Safari */
+#surah-search::-webkit-search-cancel-button,
+#surah-search::-webkit-search-decoration,
+#surah-search::-webkit-search-results-button,
+#surah-search::-webkit-search-results-decoration {
+  -webkit-appearance: none;
+  appearance: none;
+  display: none;
 }

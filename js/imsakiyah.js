@@ -29,11 +29,11 @@ function render(rows, tz) {
     const isToday = r.date === today;
     tr.className =
       "border-t border-white/10 " +
-      (isToday ? "bg-green-100/50 text-hijau-tua font-medium" : "");
+      (isToday ? "bg-green-100/50 text-biru-tua font-medium" : "");
     if (isToday) tr.dataset.today = "true";
 
     tr.innerHTML = [
-      `<td class="py-2 px-2 text-hijau-tua">${i + 1}</td>`,
+      `<td class="py-2 px-2 text-biru-tua">${i + 1}</td>`,
       `<td class="py-2 px-2 text-left whitespace-nowrap">${fmtDate.format(fromYmd(r.date))}</td>`,
       ...COLS.map((c) => `<td class="py-2 px-2">${r[c] ?? "--:--"}</td>`),
     ].join("");

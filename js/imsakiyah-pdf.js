@@ -10,7 +10,7 @@ const CFG = {
   patternOpacity: 0.05,
   patternFade: false, // true = memudar dari pojok kanan atas ke kiri bawah, seperti versi webmu
   colors: {
-    bg: "#254545", // hijau tua (samakan dengan hijau-tua di Tailwind-mu)
+    bg: "#254545", // hijau tua (samakan dengan biru-tua di Tailwind-mu)
     gold: "#ddaa54",
     bgFrom: "#254545", // kiri: gelap
     bgTo: "#14634a",

@@ -3,7 +3,7 @@ const links = document.querySelectorAll(".nav-link");
 const sections = [...links].map((l) =>
   document.getElementById(l.dataset.target),
 );
-const STATE_CLASSES = ["text-gold", "text-krem", "text-hijau-tua"];
+const STATE_CLASSES = ["text-gold", "text-krem", "text-biru-tua"];
 
 function setColor(link, ...classes) {
   link.classList.remove(...STATE_CLASSES);
@@ -35,7 +35,7 @@ const onScroll = () => {
   navInner.classList.toggle("px-12", !scrolled);
 
   // warna teks di luar menu (logo)
-  navInner.classList.toggle("text-hijau-tua", scrolled);
+  navInner.classList.toggle("text-biru-tua", scrolled);
   navInner.classList.toggle("text-krem", !scrolled);
 
   // warna menu
@@ -43,7 +43,7 @@ const onScroll = () => {
   links.forEach((link, i) => {
     if (!scrolled) setColor(link, "text-krem");
     else if (i === activeIdx) setColor(link, "text-gold");
-    else setColor(link, "text-hijau-tua");
+    else setColor(link, "text-biru-tua");
   });
 };
 

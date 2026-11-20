@@ -17,7 +17,7 @@
     />
   </head>
   <body>
-    <header class="relative bg-hijau-tua h-[380px]">
+    <header class="relative z-30 bg-biru-tua h-[380px]">
       <!-- PATTERN -->
       <svg
         class="pointer-events-none absolute inset-0 z-0 h-full w-full text-gold"
@@ -107,11 +107,12 @@
                 ayat</span
               >
 
-              <button
-                class="bg-white/10 border-y border-white/40 w-fit text-sm mt-4 mb-2 px-4 py-2 rounded-full text-krem"
+              <a
+                href="/the-direction.html#surat-1"
+                class="bg-gold w-fit text-sm mt-4 mb-2 px-4 py-2 rounded-full text-krem hover:bg-[#d29b3b] duration-200"
               >
                 Mulai membaca
-              </button>
+              </a>
             </div>
 
             <div class="border-[0.1px] border-krem/40 my-4 flex"></div>
@@ -134,24 +135,87 @@
             </div>
           </div>
 
-          <div class="flex flex-col gap-2">
+          <div class="relative flex flex-col gap-2 z-50">
             <input
-              class="px-6 py-3 text-sm rounded-full bg-white/10 border-y backdrop-blur-md border-white/40 placeholder:text-krem/80 focus:outline-0 text-krem focus:border-white/80 focus:bg-white/15 duration-200 transition-colors appearance-none"
+              id="surah-search"
               type="search"
+              autocomplete="off"
               placeholder="Nama/nomor surah"
+              class="px-6 py-3 pl-11 text-sm rounded-full bg-white/10 border-y backdrop-blur-md border-white/40 placeholder:text-[#EDE8DC] focus:outline-0 text-krem focus:border-white/80 focus:bg-white/15 duration-200 transition-colors appearance-none"
             />
 
-            <div class="flex items-center gap-2 text-krem text-sm">
-              <span
-                ><span class="text-krem/60">Sering dibaca:</span>
-                <span class="underline underline-offset-1">Al-Waqi'ah</span>,
-                <span class="underline underline-offset-1">Ya-Sin</span>,
-                <span class="underline underline-offset-1">Al-Mulk</span>,
-                <span class="underline underline-offset-1">Al-Kahfi</span>,
-                <span class="underline underline-offset-1"
-                  >Ar-Rahman</span
-                ></span
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="#EDE8DC"
+              stroke-width="2"
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              class="lucide absolute top-3 left-4 lucide-search preview-icon"
+            >
+              <path d="m21 21-4.34-4.34" />
+              <circle cx="11" cy="11" r="8" />
+            </svg>
+
+            <!-- Dropdown hasil pencarian -->
+            <div
+              id="surah-search-dropdown"
+              class="absolute left-0 right-0 top-full z-[999] mt-4 hidden max-h-80 overflow-y-auto rounded-2xl border border-white/20 bg-white/30 backdrop-blur-md p-2 shadow-xl scrollbar-hide"
+            ></div>
+
+            <!-- Template satu item surah -->
+            <template id="surah-search-item">
+              <a
+                href="#"
+                data-href
+                class="flex items-center gap-3 border border-transparent rounded-xl px-4 py-3 text-biru-tua transition hover:bg-biru-tua/5 hover:border-biru-tua/40"
               >
+                <span
+                  data-f="nomor"
+                  class="flex size-9 shrink-0 items-center justify-center rounded-lg bg-biru-tua/10 text-xs font-medium"
+                ></span>
+
+                <span class="flex min-w-0 flex-1 flex-col">
+                  <span data-f="latin" class="text-sm font-medium"></span>
+                  <span data-f="meta" class="text-xs text-biru-tua/60"></span>
+                </span>
+
+                <span data-f="arab" class="text-2xl font-arab" dir="rtl"></span>
+              </a>
+            </template>
+
+            <div class="flex items-center gap-2 text-krem text-sm">
+              <span>
+                <span class="text-krem/60">Sering dibaca:</span>
+                <a
+                  href="/the-direction.html#surat-56"
+                  class="underline underline-offset-1 hover:text-gold duration-200"
+                  >Al-Waqi'ah</a
+                >,
+                <a
+                  href="/the-direction.html#surat-36"
+                  class="underline underline-offset-1 hover:text-gold duration-200"
+                  >Ya-Sin</a
+                >,
+                <a
+                  href="/the-direction.html#surat-67"
+                  class="underline underline-offset-1 hover:text-gold duration-200"
+                  >Al-Mulk</a
+                >,
+                <a
+                  href="/the-direction.html#surat-18"
+                  class="underline underline-offset-1 hover:text-gold duration-200"
+                  >Al-Kahfi</a
+                >,
+                <a
+                  href="/the-direction.html#surat-55"
+                  class="underline underline-offset-1 hover:text-gold duration-200"
+                  >Ar-Rahman</a
+                >
+              </span>
             </div>
           </div>
         </div>
@@ -161,7 +225,7 @@
     <section id="view-list" class="relative bg-krem/70 min-h-screen">
       <!-- PATTERN -->
       <svg
-        class="pointer-events-none absolute left-0 top-0 z-0 h-[480px] w-[900px] max-w-full text-hijau-tua"
+        class="pointer-events-none absolute left-0 top-0 z-0 h-[480px] w-[900px] max-w-full text-biru-tua"
         style="
           opacity: 0.07;
           -webkit-mask-image: radial-gradient(
@@ -209,30 +273,23 @@
       >
         <div class="flex flex-col items-start">
           <h2
-            class="text-hijau-tua mb-1 text-2xl font-semibold [text-shadow:0_2px_6px_rgba(0,0,0,0.15)]"
+            class="text-biru-tua mb-1 text-2xl font-semibold [text-shadow:0_2px_6px_rgba(0,0,0,0.15)]"
           >
             Lorem ipsum dolor sit.
           </h2>
-          <span class="text-sm max-w-md text-hijau-tua">
+          <span class="text-sm max-w-md text-biru-tua">
             Ruang untuk berhenti sejenak, merenung, dan memahami diri lebih
             dalam.
           </span>
         </div>
 
         <div class="mt-6">
-          <!-- <input
-            id="surah-search"
-            type="search"
-            placeholder="Cari surat..."
-            class="w-full border border-black/10 rounded-xl px-3 py-2 text-sm text-hijau-tua mb-3"
-          /> -->
-
           <div id="surah-list" class="grid gap-4 sm:grid-cols-4"></div>
-          <p id="surah-status" class="text-sm text-hijau-tua/60 mt-3"></p>
+          <p id="surah-status" class="text-sm text-biru-tua/60 mt-3"></p>
 
           <template id="surah-item">
             <a
-              class="relative overflow-hidden border flex justify-center rounded-xl shadow-xs backdrop-blur-2xl items-stretch gap-4 border-black/10 p-2 text-hijau-tua duration-200 hover:bg-hijau-tua group hover:text-krem transition"
+              class="relative overflow-hidden border flex justify-center rounded-xl shadow-xs backdrop-blur-2xl items-stretch gap-4 border-black/10 px-3 p-2 text-biru-tua duration-200 hover:bg-biru-tua group hover:text-krem transition"
             >
               <div
                 class="surah-pattern pointer-events-none absolute inset-0 z-0"
@@ -248,12 +305,15 @@
                   <span data-f="latin" class="truncate min-w-0 text-sm"
                     >Al-Fatihah</span
                   >
-                  <span data-f="arab" dir="rtl" class="text-lg shrink-0"
+                  <span
+                    data-f="arab"
+                    dir="rtl"
+                    class="font-arab text-xl shrink-0"
                     >arab</span
                   >
                 </div>
                 <div
-                  class="flex items-center justify-between gap-4 text-sm text-hijau-tua/70 duration-200 group-hover:text-krem/70"
+                  class="flex items-center justify-between gap-4 text-xs text-biru-tua/70 duration-200 group-hover:text-krem/70"
                 >
                   <span data-f="arti" class="truncate min-w-0">Pembukaan</span>
                   <span data-f="ayat" class="shrink-0 whitespace-nowrap"
@@ -267,10 +327,10 @@
       </div>
     </section>
 
-    <section id="view-detail" class="hidden relative bg-krem/70 text-hijau-tua">
+    <section id="view-detail" class="hidden relative bg-krem/70 text-biru-tua">
       <!-- PATTERN -->
       <svg
-        class="pointer-events-none absolute left-0 top-0 z-0 h-[480px] w-[900px] max-w-full text-hijau-tua"
+        class="pointer-events-none absolute left-0 top-0 z-0 h-[480px] w-[900px] max-w-full text-biru-tua"
         style="
           opacity: 0.07;
           -webkit-mask-image: radial-gradient(
@@ -320,9 +380,54 @@
       <div
         class="relative z-10 max-w-5xl flex flex-col mx-auto justify-start items-start px-16 py-24"
       >
-        <div class="flex items-center w-full mx-auto justify-between">
-          <a href="#" class="text-sm underline">← Daftar surat</a>
-          <nav class="flex justify-between gap-3 text-sm">
+        <div class="flex items-center w-full mx-auto justify-between mb-4">
+          <a href="#" class="w-[200px] text-sm underline">← Daftar surat</a>
+
+          <div class="flex items-center justify-center gap-2">
+            <button
+              class="flex items-center gap-1 text-sm px-4 py-2 border rounded-full bg-biru-tua text-krem"
+            >
+              Al-Fatihah
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-chevron-down preview-icon"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+
+            <button
+              class="flex items-center gap-1 text-sm px-4 py-2 border rounded-full border-biru-tua text-biru-tua"
+            >
+              Ayat 1-7
+
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                class="lucide lucide-chevron-down preview-icon"
+              >
+                <path d="m6 9 6 6 6-6" />
+              </svg>
+            </button>
+          </div>
+
+          <nav class="flex w-[200px] justify-end gap-3 text-sm">
             <a id="nav-prev" class="underline"></a>
             <a id="nav-next" class="underline"></a>
           </nav>
@@ -331,13 +436,7 @@
         <header class="my-4 text-center flex justify-center flex-col mx-auto">
           <div id="sh-arab" dir="rtl" class="font-arab text-4xl mb-1"></div>
           <h1 id="sh-latin" class="text-xl font-semibold"></h1>
-          <p id="sh-meta" class="text-sm text-hijau-tua/70"></p>
-          <audio
-            id="sh-audio"
-            controls
-            preload="none"
-            class="w-full mt-3"
-          ></audio>
+          <p id="sh-meta" class="text-sm text-biru-tua/70"></p>
         </header>
 
         <ol id="ayat-list" class="flex w-full mx-auto flex-col"></ol>
@@ -347,83 +446,101 @@
           <li
             data-active="false"
             data-playing="false"
-            class="group/ayat -mx-3 rounded-xl border-b border-black/10 px-3 py-4 transition-colors data-[active=true]:bg-gold/10"
+            class="group/ayat -mx-3 border-b border-black/10 px-3 py-4 transition-colors data-[active=true]:bg-gold/5"
           >
-            <div class="flex items-start gap-3">
-              <!-- nomor + tombol putar -->
+            <div class="flex flex-col items-start gap-3">
               <div class="flex shrink-0 items-center gap-2">
                 <span
                   data-f="nomor"
-                  class="shrink-0 text-xs border border-black/10 rounded-full w-7 h-7 flex items-center justify-center"
+                  class="flex size-7 shrink-0 items-center justify-center rounded-full border border-black/10 text-xs"
                 ></span>
-                <button
-                  type="button"
-                  data-play
-                  aria-label="Putar ayat"
-                  aria-pressed="false"
-                  class="grid size-7 shrink-0 cursor-pointer place-items-center rounded-full bg-hijau-tua text-krem transition hover:brightness-125 disabled:cursor-not-allowed disabled:opacity-40"
+
+                <!-- Tombol play yang melebar menjadi audio player -->
+                <div
+                  class="flex h-7 w-7 shrink-0 items-center overflow-hidden rounded-full bg-biru-tua text-krem transition-all duration-300 group-data-[active=true]/ayat:w-56 group-data-[active=true]/ayat:px-2"
                 >
-                  <!-- ikon putar -->
-                  <svg
-                    class="group-data-[playing=true]/ayat:hidden"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
+                  <button
+                    type="button"
+                    data-play
+                    aria-label="Putar ayat"
+                    aria-pressed="false"
+                    class="grid size-7 shrink-0 cursor-pointer place-items-center transition hover:brightness-125 disabled:cursor-not-allowed disabled:opacity-40"
                   >
-                    <path
-                      d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"
+                    <!-- Ikon play -->
+                    <svg
+                      class="group-data-[playing=true]/ayat:hidden"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <path
+                        d="M7 4.5v15a1 1 0 0 0 1.5.86l12-7.5a1 1 0 0 0 0-1.72l-12-7.5A1 1 0 0 0 7 4.5z"
+                      />
+                    </svg>
+
+                    <!-- Ikon pause -->
+                    <svg
+                      class="hidden group-data-[playing=true]/ayat:block"
+                      xmlns="http://www.w3.org/2000/svg"
+                      width="12"
+                      height="12"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      aria-hidden="true"
+                    >
+                      <rect x="6" y="4" width="4" height="16" rx="1" />
+                      <rect x="14" y="4" width="4" height="16" rx="1" />
+                    </svg>
+                  </button>
+
+                  <!-- Kontrol audio muncul saat aktif -->
+                  <div
+                    class="hidden min-w-0 flex-1 items-center gap-2 group-data-[active=true]/ayat:flex"
+                  >
+                    <span
+                      data-cur
+                      class="w-8 shrink-0 text-[10px] tabular-nums"
+                    >
+                      0:00
+                    </span>
+
+                    <input
+                      data-seek
+                      type="range"
+                      min="0"
+                      max="100"
+                      step="0.1"
+                      value="0"
+                      aria-label="Posisi audio"
+                      class="h-1 min-w-0 flex-1 cursor-pointer accent-gold"
                     />
-                  </svg>
-                  <!-- ikon jeda -->
-                  <svg
-                    class="hidden group-data-[playing=true]/ayat:block"
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="12"
-                    height="12"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    aria-hidden="true"
-                  >
-                    <rect x="6" y="4" width="4" height="16" rx="1" />
-                    <rect x="14" y="4" width="4" height="16" rx="1" />
-                  </svg>
-                </button>
+
+                    <span
+                      data-dur
+                      class="w-8 shrink-0 mr-2 text-right text-[10px] tabular-nums"
+                    >
+                      0:00
+                    </span>
+                  </div>
+                </div>
               </div>
 
-              <div class="flex-1 min-w-0">
+              <div class="min-w-0 w-full flex-1">
                 <p
                   data-f="arab"
                   dir="rtl"
-                  class="text-4xl font-arab leading-loose"
-                ></p>
-                <p data-f="latin" class="text-sm text-hijau-tua mt-2"></p>
-                <p
-                  data-f="arti"
-                  class="text-xs italic text-hijau-tua/60 mt-2"
+                  class="text-4xl max-w-[90%] ml-auto text-right font-arab leading-loose"
                 ></p>
 
-                <!-- pemutar audio: muncul saat ayat diputar -->
-                <div
-                  class="mt-3 hidden items-center gap-3 rounded-full bg-hijau-tua px-4 py-2 text-krem group-data-[active=true]/ayat:flex"
-                >
-                  <span data-cur class="w-9 text-xs tabular-nums">0:00</span>
-                  <input
-                    data-seek
-                    type="range"
-                    min="0"
-                    max="100"
-                    step="0.1"
-                    value="0"
-                    aria-label="Posisi audio"
-                    class="h-1 min-w-0 flex-1 cursor-pointer accent-gold"
-                  />
-                  <span data-dur class="w-9 text-right text-xs tabular-nums"
-                    >0:00</span
-                  >
-                </div>
+                <p data-f="latin" class="mt-2 text-sm text-biru-tua"></p>
+
+                <p
+                  data-f="arti"
+                  class="mt-2 text-sm italic text-biru-tua/60"
+                ></p>
               </div>
             </div>
           </li>

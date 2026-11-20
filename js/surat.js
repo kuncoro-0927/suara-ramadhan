@@ -61,7 +61,7 @@ function toggleAyat(li, a) {
     else audio.pause();
     return;
   }
-  $("sh-audio").pause(); // matikan audio satu surat penuh
+  // matikan audio satu surat penuh
   resetRow(cur?.li);
   cur = { li, a };
   li.dataset.active = "true";
@@ -133,9 +133,6 @@ audio.addEventListener("ended", async () => {
   }
 });
 
-// audio satu surat penuh dan audio per ayat tidak boleh bunyi bersamaan
-$("sh-audio").addEventListener("play", () => audio.pause());
-
 /* ===== TAMPILAN SURAT ===== */
 function renderHead(s) {
   $("sh-arab").textContent = s.arab;
@@ -144,7 +141,6 @@ function renderHead(s) {
     .filter(Boolean)
     .join(" · ");
 
-  const audio = $("sh-audio");
   audio.pause();
   audio.src = s.audio || "";
   audio.classList.toggle("hidden", !s.audio);
@@ -223,7 +219,6 @@ async function loadMore(st) {
 }
 
 export function stopAudio() {
-  $("sh-audio").pause();
   audio.pause();
   resetRow(cur?.li);
   cur = null;

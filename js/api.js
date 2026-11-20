@@ -6,12 +6,12 @@ const QURAN = "https://api.myquran.com/v2/quran";
 /* ================= AL-QUR'AN: DAFTAR SURAT ================= */
 function normalizeSurah(s) {
   return {
-    nomor: Number(s.number), // di v2 berupa string "1"
-    latin: s.name_id, // "Al-Fatihah"
-    arab: s.name_short, // "الفاتحة"
-    arabPanjang: s.name_long, // "سُورَةُ ٱلْفَاتِحَةِ" (berharakat)
-    arti: s.translation_id, // "Pembukaan"
-    ayat: Number(s.number_of_verses), // string -> angka
+    nomor: Number(s.number),
+    latin: s.name_id,
+    arab: s.name_short,
+    arabPanjang: s.name_long,
+    arti: s.translation_id,
+    ayat: Number(s.number_of_verses),
     tipe: s.revelation_id, // "Makkiyyah"
     deskripsi: s.tafsir,
     audio: s.audio_url,
@@ -118,24 +118,73 @@ async function fetchRange(n, from, to) {
   return out;
 }
 
-export async function getAyatChunk(nomor, from, to) {
-  const CK = `quran:ayat:v2:${nomor}:${from}-${to}`;
-  try {
-    const c = JSON.parse(localStorage.getItem(CK));
-    if (c?.length) return c;
-  } catch {}
+/* ================= AUDIO AYAT: MYQURAN V3 ================= */
 
-  const rows = (await fetchRange(nomor, from, to))
-    .filter(Boolean)
-    .map(normalizeAyat);
-  if (!rows.length || !ADA_ARAB.test(rows[0].arab ?? "")) {
-    throw new Error("Ayat tidak ditemukan atau strukturnya berubah");
+const QURAN_V3 = "https://api.myquran.com/v3/quran";
+
+async function getAyatAudioV3(nomor, from, to) {
+  const page = Math.floor((from - 1) / AYAT_PER_HALAMAN) + 1;
+
+  const res = await fetch(
+    `${QURAN_V3}/${nomor}?page=${page}&limit=${AYAT_PER_HALAMAN}`,
+  );
+
+  if (!res.ok) {
+    throw new Error(`Gagal mengambil audio v3: HTTP ${res.status}`);
   }
 
+  const json = await res.json();
+
+  if (!json.status || !json.data?.ayahs) {
+    throw new Error("Data audio MyQuran v3 tidak ditemukan");
+  }
+
+  return json.data.ayahs
+    .filter((ayah) => {
+      const nomorAyat = Number(ayah.ayah_number);
+      return nomorAyat >= from && nomorAyat <= to;
+    })
+    .map((ayah) => ({
+      nomor: Number(ayah.ayah_number),
+      audio: ayah.audio_url,
+    }));
+}
+
+export async function getAyatChunk(nomor, from, to) {
+  const CK = `quran:ayat:v3-audio:${nomor}:${from}-${to}`;
+
+  // Ambil cache terbaru jika tersedia
   try {
-    localStorage.setItem(CK, JSON.stringify(rows));
+    const cached = JSON.parse(localStorage.getItem(CK));
+    if (cached?.length) return cached;
   } catch {}
-  return rows;
+
+  // 1. Ambil teks Arab, latin, dan terjemahan dari v2
+  const rowsV2 = (await fetchRange(nomor, from, to)).filter(Boolean);
+
+  if (!rowsV2.length || !ADA_ARAB.test(rowsV2[0].arab ?? "")) {
+    throw new Error("Ayat tidak ditemukan atau struktur berubah");
+  }
+
+  const rows = rowsV2.map(normalizeAyat);
+
+  // 2. Ambil audio dari v3
+  const audioRows = await getAyatAudioV3(nomor, from, to);
+
+  const audioMap = new Map(audioRows.map((item) => [item.nomor, item.audio]));
+
+  // 3. Gabungkan data v2 dan v3
+  const result = rows.map((ayat) => ({
+    ...ayat,
+    audio: audioMap.get(ayat.nomor) || null,
+  }));
+
+  // 4. Simpan hasil gabungan
+  try {
+    localStorage.setItem(CK, JSON.stringify(result));
+  } catch {}
+
+  return result;
 }
 
 /* ================= JADWAL SHOLAT ================= */
